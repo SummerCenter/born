@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إحصائية المراكز الصيفية 2025 | صيفي تواصل ونماء</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a6f5a;
+            --secondary-color: #2d9d78;
+            --accent-color: #f4b350;
+            --male-color: #3498db;
+            --female-color: #e83f8e;
+            --guidance-color: #9b59b6;
+            --light-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --gold-gradient: linear-gradient(135deg, #f4b350, #f8d56b);
+            --chart-male: rgba(52, 152, 219, 0.7);
+            --chart-female: rgba(232, 63, 142, 0.7);
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            background-image: url('https://a.top4top.io/p_3463hcooj1.png');
+            background-size: 20%;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* تأثيرات الحركة */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(244, 179, 80, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(244, 179, 80, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(244, 179, 80, 0.5); }
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* الهيدر المتميز */
+        .header {
+            background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), #1a6f5a);
+            background-size: 300% 300%;
+            animation: gradientFlow 15s ease infinite;
+            color: white;
+            padding: 4rem 0 6rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 8px solid var(--accent-color);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: var(--gold-gradient);
+        }
+
+        .logo-container {
+            perspective: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            max-width: 220px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+            transform-style: preserve-3d;
+        }
+
+        .logo:hover {
+            transform: rotateY(15deg) scale(1.1);
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.4)) brightness(1.1);
+        }
+
+        /* لوحة الإحصائيات */
+        .stats-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .stats-header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .male-stats {
+            border-top: 8px solid var(--male-color);
+        }
+
+        .female-stats {
+            border-top: 8px solid var(--female-color);
+        }
+
+        .male-header-bg {
+            background: linear-gradient(270deg, var(--male-color), #2980b9, #3498db);
+            background-size: 300% 300%;
+            animation: gradientFlow 12s ease infinite;
+        }
+
+        .female-header-bg {
+            background: linear-gradient(270deg, var(--female-color), #d32f7e, #e83f8e);
+            background-size: 300% 300%;
+            animation: gradientFlow 12s ease infinite;
+        }
+
+        .stats-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gold-gradient);
+        }
+
+        /* العناصر الإحصائية */
+        .stat-item {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .stat-item:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateX(10px);
+        }
+
+        .stat-icon-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.5s;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .male-icon {
+            background-color: rgba(52, 152, 219, 0.15);
+            color: var(--male-color);
+        }
+
+        .female-icon {
+            background-color: rgba(232, 63, 142, 0.15);
+            color: var(--female-color);
+        }
+
+        .stat-item:hover .stat-icon {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: left;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .male-value {
+            color: var(--male-color);
+            text-shadow: 0 3px 6px rgba(52, 152, 219, 0.2);
+        }
+
+        .female-value {
+            color: var(--female-color);
+            text-shadow: 0 3px 6px rgba(232, 63, 142, 0.2);
+        }
+
+        /* الرسوم البيانية */
+        .chart-container {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .chart-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            height: 100%;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        /* القائمة المنسدلة */
+        .select-container {
+            max-width: 600px;
+            margin: 0 auto 5rem;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.2s;
+        }
+
+        .form-select {
+            border: 4px solid var(--secondary-color);
+            border-radius: 18px;
+            padding: 20px 35px;
+            font-size: 1.4rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: all 0.4s;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%232d9d78' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3e%3c/svg%3e");
+            cursor: pointer;
+            background-color: rgba(255,255,255,0.9);
+        }
+
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.3rem rgba(244, 179, 80, 0.4);
+            transform: scale(1.03);
+        }
+
+        /* زر المقارنة */
+        .compare-btn-container {
+            text-align: center;
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards 0.8s;
+        }
+        
+        .compare-btn {
+            background: var(--accent-color);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(244, 179, 80, 0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .compare-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 179, 80, 0.6);
+            background: linear-gradient(135deg, #f4b350, #f8d56b);
+        }
+        
+        .compare-btn i {
+            transition: all 0.3s;
+        }
+        
+        .compare-btn:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* حالة عدم الاختيار */
+        .no-center {
+            text-align: center;
+            padding: 6rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            margin: 5rem 0;
+            border: 3px dashed var(--secondary-color);
+            transition: all 0.5s;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .no-center:hover {
+            transform: translateY(-10px) scale(1) !important;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            border-color: var(--accent-color);
+        }
+
+        .no-center i {
+            font-size: 6rem;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+            animation: pulse 3s infinite, glow 3s infinite;
+        }
+
+        /* التذييل */
+        .footer {
+            background: linear-gradient(270deg, var(--primary-color), #154c3d, #1a6f5a);
+            background-size: 300% 300%;
+            animation: gradientFlow 18s ease infinite;
+            color: white;
+            padding: 4rem 0 8rem;
+            margin-top: 8rem;
+            position: relative;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--gold-gradient);
+        }
+
+        .guidance-section {
+            background: linear-gradient(135deg, var(--guidance-color), #8e44ad);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: -6rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 25px 50px rgba(155, 89, 182, 0.3);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.7s;
+            transition: all 0.5s;
+        }
+
+        .guidance-section:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 30px 60px rgba(155, 89, 182, 0.4);
+        }
+
+        /* الأشكال العائمة */
+        .floating-shapes {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+            filter: blur(40px);
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(244,179,80,0.3) 0%, rgba(244,179,80,0) 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite, colorPulse1 15s infinite;
+        }
+
+        .shape-2 {
+            bottom: 5%;
+            right: 5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(45,157,120,0.2) 0%, rgba(45,157,120,0) 70%);
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite 2s, colorPulse2 18s infinite;
+        }
+
+        .shape-3 {
+            top: 60%;
+            left: 20%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(155,89,182,0.2) 0%, rgba(155,89,182,0) 70%);
+            border-radius: 50%;
+            animation: float 9s ease-in-out infinite 1s, colorPulse3 12s infinite;
+        }
+
+        @keyframes colorPulse1 {
+            0% { background-color: rgba(244,179,80,0.3); transform: scale(1); }
+            50% { background-color: rgba(244,179,80,0.5); transform: scale(1.1); }
+            100% { background-color: rgba(244,179,80,0.3); transform: scale(1); }
+        }
+
+        @keyframes colorPulse2 {
+            0% { background-color: rgba(45,157,120,0.2); transform: scale(1); }
+            50% { background-color: rgba(45,157,120,0.4); transform: scale(1.1); }
+            100% { background-color: rgba(45,157,120,0.2); transform: scale(1); }
+        }
+
+        @keyframes colorPulse3 {
+            0% { background-color: rgba(155,89,182,0.2); transform: scale(1); }
+            50% { background-color: rgba(155,89,182,0.4); transform: scale(1.1); }
+            100% { background-color: rgba(155,89,182,0.2); transform: scale(1); }
+        }
+
+        /* طبقة النقر الخارجي */
+        .click-outside-listener {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            display: none;
+        }
+
+        /* تأثيرات خاصة */
+        .premium-feature {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-feature::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255,255,255,0.3) 50%,
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        /* نافذة المقارنة */
+        .comparison-modal .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .comparison-modal .modal-header {
+            background: linear-gradient(270deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+        
+        .comparison-modal .modal-body {
+            padding: 2rem;
+        }
+        
+        .comparison-chart-container {
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .comparison-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .center-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .modal-backdrop.show {
+            opacity: 0.8;
+        }
+
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 1200px) {
+            body {
+                background-size: 30%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            body {
+                background-size: 40%;
+            }
+            
+            .header {
+                padding: 3rem 0 5rem;
+            }
+            
+            .logo {
+                max-width: 180px;
+            }
+            
+            .stat-item {
+                padding: 1.8rem;
+            }
+            
+            .stat-icon {
+                font-size: 1.8rem;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .form-select {
+                padding: 18px 30px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: 60%;
+            }
+            
+            .header {
+                padding: 2.5rem 0 4rem;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+            
+            .logo {
+                max-width: 160px;
+            }
+            
+            .no-center {
+                padding: 4rem;
+            }
+            
+            .no-center i {
+                font-size: 5rem;
+            }
+            
+            .stats-header {
+                padding: 1.5rem;
+            }
+            
+            .stat-item {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                background-size: 80%;
+            }
+            
+            .header {
+                padding: 2rem 0 3rem;
+            }
+            
+            .logo {
+                max-width: 140px;
+            }
+            
+            .no-center {
+                padding: 3rem 1.5rem;
+            }
+            
+            .no-center i {
+                font-size: 4rem;
+            }
+            
+            .form-select {
+                padding: 15px 25px;
+                font-size: 1.2rem;
+            }
+            
+            .stat-icon {
+                font-size: 1.6rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .stat-value {
+                font-size: 1.4rem;
+            }
+            
+            .footer {
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            .guidance-section {
+                margin-top: -4rem;
+            }
+
+            /* تعديلات للهواتف على نافذة المقارنة */
+            .comparison-modal .modal-dialog {
+                margin: 0.5rem;
+            }
+            
+            .comparison-modal .modal-body {
+                padding: 1rem;
+            }
+            
+            .comparison-chart-container {
+                padding: 1rem;
+            }
+            
+            .center-legend {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="floating-shapes shape-1"></div>
+    <div class="floating-shapes shape-2"></div>
+    <div class="floating-shapes shape-3"></div>
+    
+    <div class="click-outside-listener" id="clickOutsideListener"></div>
+    
+    <div class="header text-center animate__animated animate__fadeIn">
+        <div class="container">
+            <div class="logo-container">
+                <img src="https://a.top4top.io/p_3463hcooj1.png" alt="شعار المراكز الصيفية - صيفي تواصل ونماء" class="logo">
+            </div>
+            <h1 class="mb-3 animate__animated animate__fadeInUp">إحصائية المراكز الصيفية 2025</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
+                <span class="fw-bold" style="color: var(--accent-color); text-shadow: 0 3px 6px rgba(0,0,0,0.25);">صيفي تواصل ونماء</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 select-container">
+                <select id="center-select" class="form-select form-select-lg">
+                    <option value="" selected disabled>اختر مركزًا لعرض إحصاءاته</option>
+                    <!-- سيتم ملؤها بالجافاسكريبت -->
+                </select>
+            </div>
+        </div>
+
+        <div class="compare-btn-container" id="compareBtnContainer" style="display: none;">
+            <button type="button" class="compare-btn" id="compareBtn">
+                <i class="fas fa-chart-bar"></i> مقارنة جميع المراكز
+            </button>
+        </div>
+
+        <div id="center-info" class="row justify-content-center" style="display: none;">
+            <div class="col-lg-10">
+                <div class="stats-panel premium-feature" id="gender-stats">
+                    <div class="stats-header" id="stats-header">
+                        <h2 id="center-name" class="mb-2"></h2>
+                        <p id="center-gender" class="mb-0"></p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-users stat-icon" id="students-icon"></i>
+                                    <span>عدد الطلبة</span>
+                                </div>
+                                <span class="stat-value" id="students-count"></span>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-door-open stat-icon" id="halls-icon"></i>
+                                    <span>عدد القاعات</span>
+                                </div>
+                                <span class="stat-value" id="halls-count"></span>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-book stat-icon" id="programs-icon"></i>
+                                    <span>عدد البرامج المنفذة</span>
+                                </div>
+                                <span class="stat-value" id="programs-count"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-bus stat-icon" id="trips-icon"></i>
+                                    <span>عدد الرحلات</span>
+                                </div>
+                                <span class="stat-value" id="trips-count"></span>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-map-marked-alt stat-icon" id="visits-icon"></i>
+                                    <span>عدد الزيارات</span>
+                                </div>
+                                <span class="stat-value" id="visits-count"></span>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-icon-container">
+                                    <i class="fas fa-chalkboard-teacher stat-icon" id="trainers-icon"></i>
+                                    <span>عدد المدربين</span>
+                                </div>
+                                <span class="stat-value" id="trainers-count"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="chart-card">
+                                <h5 class="chart-title">التوزيع النسبي</h5>
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="chart-card">
+                                <h5 class="chart-title">المقارنة الإحصائية</h5>
+                                <canvas id="barChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12 mt-4">
+                            <div class="chart-card">
+                                <h5 class="chart-title">النشاطات والبرامج</h5>
+                                <canvas id="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="no-center" class="no-center">
+            <i class="fas fa-info-circle"></i>
+            <h4 class="mt-3">الرجاء اختيار مركز من القائمة</h4>
+            <p class="text-muted">سيتم عرض إحصائيات المركز المختار هنا مع لوحة بيانات تفاعلية</p>
+        </div>
+    </div>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="guidance-section" style="margin-top: -3rem;">
+                        <h4 class="mb-3"><i class="fas fa-graduation-cap me-2"></i>دائرة التوجيه المهني والإرشاد الطلابي</h4>
+                        <p class="mb-0">تعليمية محافظة الظاهرة</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-5 pt-4">
+                <p class="mb-0">© 2025 نظام إحصائية المراكز الصيفية - صيفي تواصل ونماء. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- نافذة المقارنة -->
+    <div class="modal fade comparison-modal" id="comparisonModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">مقارنة إحصائية بين جميع المراكز</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="comparison-chart-container">
+                        <h5 class="comparison-title">عدد الطلبة</h5>
+                        <canvas id="comparisonStudentsChart"></canvas>
+                    </div>
+                    
+                    <div class="comparison-chart-container">
+                        <h5 class="comparison-title">عدد البرامج المنفذة</h5>
+                        <canvas id="comparisonProgramsChart"></canvas>
+                    </div>
+                    
+                    <div class="comparison-chart-container">
+                        <h5 class="comparison-title">عدد المدربين</h5>
+                        <canvas id="comparisonTrainersChart"></canvas>
+                    </div>
+                    
+                    <div class="comparison-chart-container">
+                        <h5 class="comparison-title">النشاطات (رحلات وزيارات)</h5>
+                        <canvas id="comparisonActivitiesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // بيانات جدول Google Sheets
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwfie-YwDpPQ4I-_hL1JNu3t6YAZboxRX-2KUyZsFaU1dYIvFKusTR_4RC9hUlk0_2LLX2deSwWUnV/pub?gid=0&single=true&output=csv';
+        
+        // عناصر DOM
+        const centerSelect = document.getElementById('center-select');
+        const centerInfo = document.getElementById('center-info');
+        const noCenter = document.getElementById('no-center');
+        const genderStats = document.getElementById('gender-stats');
+        const statsHeader = document.getElementById('stats-header');
+        const clickOutsideListener = document.getElementById('clickOutsideListener');
+        const compareBtnContainer = document.getElementById('compareBtnContainer');
+        const compareBtn = document.getElementById('compareBtn');
+        
+        // عناصر البيانات
+        const centerName = document.getElementById('center-name');
+        const centerGender = document.getElementById('center-gender');
+        const studentsCount = document.getElementById('students-count');
+        const hallsCount = document.getElementById('halls-count');
+        const programsCount = document.getElementById('programs-count');
+        const tripsCount = document.getElementById('trips-count');
+        const visitsCount = document.getElementById('visits-count');
+        const trainersCount = document.getElementById('trainers-count');
+        
+        // عناصر الأيقونات
+        const statIcons = [
+            document.getElementById('students-icon'),
+            document.getElementById('halls-icon'),
+            document.getElementById('programs-icon'),
+            document.getElementById('trips-icon'),
+            document.getElementById('visits-icon'),
+            document.getElementById('trainers-icon')
+        ];
+        
+        // عناصر القيم
+        const statValues = [
+            studentsCount, hallsCount, programsCount, 
+            tripsCount, visitsCount, trainersCount
+        ];
+        
+        // المتغيرات العالمية للرسوم البيانية
+        let pieChart, barChart, lineChart;
+        let allCentersData = [];
+        const comparisonModal = new bootstrap.Modal(document.getElementById('comparisonModal'));
+        
+        // ضبط إعدادات Chart.js للغة العربية
+        Chart.defaults.font.family = 'Tajawal';
+        Chart.defaults.font.size = 14;
+        Chart.defaults.rtl = true;
+        
+        // جلب البيانات من Google Sheets
+        async function fetchData() {
+            try {
+                const response = await fetch(sheetUrl);
+                const csvData = await response.text();
+                const centers = parseCSV(csvData);
+                
+                allCentersData = centers;
+                
+                // تعبئة القائمة المنسدلة
+                populateSelect(centers);
+                
+                // إظهار زر المقارنة إذا كان هناك مراكز
+                if (centers.length > 0) {
+                    compareBtnContainer.style.display = 'block';
+                }
+                
+                // إضافة مستمع لحدث التغيير
+                centerSelect.addEventListener('change', (e) => {
+                    const selectedCenter = e.target.value;
+                    if (selectedCenter) {
+                        const center = centers.find(c => c['اسم المركز'] === selectedCenter);
+                        displayCenterInfo(center);
+                        clickOutside                        clickOutsideListener.style.display = 'none';
+                        centerInfo.style.display = 'block';
+                        noCenter.style.display = 'none';
+                    } else {
+                        centerInfo.style.display = 'none';
+                        noCenter.style.display = 'block';
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                alert('حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.');
+            }
+        }
+        
+        // تحليل بيانات CSV إلى مصفوفة من الكائنات
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const result = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i]) continue;
+                
+                const obj = {};
+                const currentline = lines[i].split(',');
+                
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = currentline[j] ? currentline[j].trim() : '';
+                }
+                
+                result.push(obj);
+            }
+            
+            return result;
+        }
+        
+        // تعبئة القائمة المنسدلة بالمراكز
+        function populateSelect(centers) {
+            centerSelect.innerHTML = '<option value="" selected disabled>اختر مركزًا لعرض إحصاءاته</option>';
+            
+            centers.forEach(center => {
+                if (center['اسم المركز']) {
+                    const option = document.createElement('option');
+                    option.value = center['اسم المركز'];
+                    option.textContent = center['اسم المركز'];
+                    centerSelect.appendChild(option);
+                }
+            });
+        }
+        
+        // عرض معلومات المركز المحدد
+        function displayCenterInfo(center) {
+            if (!center) return;
+            
+            // تعبئة البيانات الأساسية
+            centerName.textContent = center['اسم المركز'];
+            centerGender.textContent = center['النوع'] === 'ذكور' ? 'مركز ذكور' : 'مركز إناث';
+            
+            // تعبئة الإحصائيات
+            studentsCount.textContent = center['عدد الطلبة'] || '0';
+            hallsCount.textContent = center['عدد القاعات'] || '0';
+            programsCount.textContent = center['عدد البرامج'] || '0';
+            tripsCount.textContent = center['عدد الرحلات'] || '0';
+            visitsCount.textContent = center['عدد الزيارات'] || '0';
+            trainersCount.textContent = center['عدد المدربين'] || '0';
+            
+            // تخصيص الألوان حسب نوع المركز
+            const isMaleCenter = center['النوع'] === 'ذكور';
+            const primaryColor = isMaleCenter ? 'var(--male-color)' : 'var(--female-color)';
+            const secondaryColor = isMaleColor ? 'rgba(52, 152, 219, 0.1)' : 'rgba(232, 63, 142, 0.1)';
+            
+            // تحديث لون الهيدر
+            statsHeader.className = isMaleCenter ? 
+                'stats-header male-header-bg' : 
+                'stats-header female-header-bg';
+            
+            // تحديث ألوان الأيقونات والقيم
+            statIcons.forEach(icon => {
+                icon.className = isMaleCenter ? 
+                    `${icon.className.split(' ')[0]} stat-icon male-icon` : 
+                    `${icon.className.split(' ')[0]} stat-icon female-icon`;
+            });
+            
+            statValues.forEach(value => {
+                value.className = isMaleCenter ? 
+                    'stat-value male-value' : 
+                    'stat-value female-value';
+            });
+            
+            // إنشاء الرسوم البيانية
+            createCharts(center, isMaleCenter);
+        }
+        
+        // إنشاء الرسوم البيانية
+        function createCharts(center, isMaleCenter) {
+            const primaryColor = isMaleCenter ? 'var(--male-color)' : 'var(--female-color)';
+            const chartMale = isMaleCenter ? 'rgba(52, 152, 219, 0.7)' : 'rgba(52, 152, 219, 0.3)';
+            const chartFemale = !isMaleCenter ? 'rgba(232, 63, 142, 0.7)' : 'rgba(232, 63, 142, 0.3)';
+            
+            // تدمير الرسوم البيانية القديمة إذا كانت موجودة
+            if (pieChart) pieChart.destroy();
+            if (barChart) barChart.destroy();
+            if (lineChart) lineChart.destroy();
+            
+            // رسم بياني دائري (التوزيع النسبي)
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['طلبة', 'مدربين', 'قاعات', 'برامج'],
+                    datasets: [{
+                        data: [
+                            center['عدد الطلبة'] || 0,
+                            center['عدد المدربين'] || 0,
+                            center['عدد القاعات'] || 0,
+                            center['عدد البرامج'] || 0
+                        ],
+                        backgroundColor: [
+                            primaryColor,
+                            'var(--guidance-color)',
+                            'var(--secondary-color)',
+                            'var(--accent-color)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            rtl: true
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // رسم بياني شريطي (المقارنة الإحصائية)
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['طلبة', 'مدربين', 'قاعات', 'برامج', 'رحلات', 'زيارات'],
+                    datasets: [{
+                        label: 'الإحصائيات',
+                        data: [
+                            center['عدد الطلبة'] || 0,
+                            center['عدد المدربين'] || 0,
+                            center['عدد القاعات'] || 0,
+                            center['عدد البرامج'] || 0,
+                            center['عدد الرحلات'] || 0,
+                            center['عدد الزيارات'] || 0
+                        ],
+                        backgroundColor: [
+                            primaryColor,
+                            'var(--guidance-color)',
+                            'var(--secondary-color)',
+                            'var(--accent-color)',
+                            '#3498db',
+                            '#2ecc71'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // رسم بياني خطي (النشاطات والبرامج)
+            const lineCtx = document.getElementById('lineChart').getContext('2d');
+            lineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'],
+                    datasets: [
+                        {
+                            label: 'البرامج المنفذة',
+                            data: [
+                                Math.floor((center['عدد البرامج'] || 0) * 0.2),
+                                Math.floor((center['عدد البرامج'] || 0) * 0.4,
+                                Math.floor((center['عدد البرامج'] || 0) * 0.7),
+                                center['عدد البرامج'] || 0
+                            ],
+                            borderColor: 'var(--accent-color)',
+                            backgroundColor: 'rgba(244, 179, 80, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'الرحلات والزيارات',
+                            data: [
+                                Math.floor(((center['عدد الرحلات'] || 0) + (center['عدد الزيارات'] || 0)) * 0.1),
+                                Math.floor(((center['عدد الرحلات'] || 0) + (center['عدد الزيارات'] || 0)) * 0.3),
+                                Math.floor(((center['عدد الرحلات'] || 0) + (center['عدد الزيارات'] || 0)) * 0.6,
+                                ((center['عدد الرحلات'] || 0) + (center['عدد الزيارات'] || 0))
+                            ],
+                            borderColor: 'var(--secondary-color)',
+                            backgroundColor: 'rgba(45, 157, 120, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            rtl: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // إنشاء رسوم بيانية للمقارنة
+        function createComparisonCharts() {
+            // فرز المراكز حسب عدد الطلبة
+            const sortedCenters = [...allCentersData].sort((a, b) => {
+                return (parseInt(b['عدد الطلبة']) || 0) - (parseInt(a['عدد الطلبة']) || 0);
+            });
+            
+            const centerNames = sortedCenters.map(c => c['اسم المركز']);
+            const studentsData = sortedCenters.map(c => parseInt(c['عدد الطلبة']) || 0);
+            const programsData = sortedCenters.map(c => parseInt(c['عدد البرامج']) || 0);
+            const trainersData = sortedCenters.map(c => parseInt(c['عدد المدربين']) || 0);
+            const activitiesData = sortedCenters.map(c => (parseInt(c['عدد الرحلات']) || 0) + (parseInt(c['عدد الزيارات']) || 0));
+            
+            // تدمير الرسوم البيانية القديمة إذا كانت موجودة
+            const comparisonStudentsCtx = document.getElementById('comparisonStudentsChart').getContext('2d');
+            const comparisonProgramsCtx = document.getElementById('comparisonProgramsChart').getContext('2d');
+            const comparisonTrainersCtx = document.getElementById('comparisonTrainersChart').getContext('2d');
+            const comparisonActivitiesCtx = document.getElementById('comparisonActivitiesChart').getContext('2d');
+            
+            new Chart(comparisonStudentsCtx, {
+                type: 'bar',
+                data: {
+                    labels: centerNames,
+                    datasets: [{
+                        label: 'عدد الطلبة',
+                        data: studentsData,
+                        backgroundColor: centerNames.map(name => {
+                            const center = allCentersData.find(c => c['اسم المركز'] === name);
+                            return center['النوع'] === 'ذكور' ? 'rgba(52, 152, 219, 0.7)' : 'rgba(232, 63, 142, 0.7)';
+                        }),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            new Chart(comparisonProgramsCtx, {
+                type: 'bar',
+                data: {
+                    labels: centerNames,
+                    datasets: [{
+                        label: 'عدد البرامج',
+                        data: programsData,
+                        backgroundColor: 'rgba(244, 179, 80, 0.7)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            new Chart(comparisonTrainersCtx, {
+                type: 'bar',
+                data: {
+                    labels: centerNames,
+                    datasets: [{
+                        label: 'عدد المدربين',
+                        data: trainersData,
+                        backgroundColor: 'rgba(155, 89, 182, 0.7)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            new Chart(comparisonActivitiesCtx, {
+                type: 'bar',
+                data: {
+                    labels: centerNames,
+                    datasets: [
+                        {
+                            label: 'الرحلات',
+                            data: sortedCenters.map(c => parseInt(c['عدد الرحلات']) || 0),
+                            backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'الزيارات',
+                            data: sortedCenters.map(c => parseInt(c['عدد الزيارات']) || 0),
+                            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            rtl: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // حدث النقر على زر المقارنة
+        compareBtn.addEventListener('click', () => {
+            createComparisonCharts();
+            comparisonModal.show();
+        });
+        
+        // بدء التطبيق
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>
